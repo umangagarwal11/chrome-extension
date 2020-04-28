@@ -24,14 +24,18 @@ document.querySelector('.first').addEventListener('keydown', e => {
 })
 
 function formatAMPM() {
+    var greet="";
     var date = new Date()
     var hours = date.getHours();
     if(hours > 16) {
-        greet = 'evening'
+        greet = 'Good evening'
     } else if(hours > 11) {
-        greet = 'afternoon'
+        greet = 'Good afternoon'
     } else if(hours > 6) {
-        greet = 'morning'
+        greet = 'Good morning'
+    }
+    else{
+        greet= 'Hey'
     }
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
@@ -40,7 +44,7 @@ function formatAMPM() {
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes;
     document.querySelector('#ct').innerHTML = strTime;
-    document.querySelector('#greet').innerHTML = `Good ${greet}, ${localStorage.getItem('name')}`
+    document.querySelector('#greet').innerHTML = greet+` ${localStorage.getItem('name')},`
 }
 
 setInterval(formatAMPM, 1000);

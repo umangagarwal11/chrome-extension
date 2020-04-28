@@ -2,7 +2,7 @@
   "name": "Umang's first extension",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Get an image with a greeting whenever you open a new tab.",
+  "description": "A chrome extension to beautify your home page and motivate you for the day with some exciting other features",
   "icons": {
   "16": "icons/icon16.png",
   "48": "icons/icon48.png",

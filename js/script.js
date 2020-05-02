@@ -99,17 +99,25 @@ function formatAMPM() {
         var a=$(this).attr('id');
         var todo = JSON.parse(localStorage.getItem('todo'));
         if(todo[a]['check']=="checked"){
-          document.getElementById(a).style.textDecoration="none";
+          document.getElementById(a).firstElementChild.style.textDecoration="none";
           todo[a]['check']="unchecked";
           localStorage.setItem('todo',JSON.stringify(todo))
           return
         }
         else {
-          document.getElementById(a).style.textDecoration="line-through";
+          document.getElementById(a).firstElementChild.style.textDecoration="line-through";
           todo[a]['check']="checked";
           localStorage.setItem('todo',JSON.stringify(todo))
           return
         }
+    });
+
+    $('.del').on('click',function(){
+      var a=$(this).parent().attr('id');
+      var todo = JSON.parse(localStorage.getItem('todo'));
+      delete todo[a];
+      localStorage.setItem('todo',JSON.stringify(todo))
+      gettodo();
     });
       });
 }
@@ -119,10 +127,10 @@ function gettodo()
   var todo=JSON.parse(localStorage.getItem('todo'));
   for (x in todo){
     if(todo[x]['check']=="unchecked")
-    abc+='<li class="list-group-item col-12" id="'+x+'" style="text-align:left" >'+todo[x]['text']+'</li>';
+    abc+='<li class="list-group-item col-12 modal-header" id="'+x+'" style="text-align:left" ><p class="modal-title" id="exampleModalCenterTitle">'+todo[x]['text']+'</p><button type="button" class="close del"><span aria-hidden="true">&times;</span></button></li>';
     else{
-    abc+='<li class="list-group-item col-12" id="'+x+'" style="text-align:left; text-decoration:line-through" >'+todo[x]['text']+'</li>';
-    }
+      abc+='<li class="list-group-item col-12 modal-header" id="'+x+'" style="text-align:left;" ><p class="modal-title" id="exampleModalCenterTitle" style="text-decoration:line-through;">'+todo[x]['text']+'</p><button type="button" class="close del"><span aria-hidden="true">&times;</span></button></li>';
+      }
   }
       document.querySelector('#todo').innerHTML = abc+'</ul>';
 

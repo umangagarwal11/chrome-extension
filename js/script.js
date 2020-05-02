@@ -22,6 +22,20 @@ document.querySelector('.first').addEventListener('keydown', e => {
         }
     }
 })
+
+document.querySelector('.modal-body').addEventListener('keydown', e => {
+    if(e.key == 'Enter') {
+        var name_input = localStorage.getItem('todo')+'<li class="list-group-item" style="text-align:left;margin-top:0;">'+document.querySelector('.todo-input').value+'</li>'
+        if(document.querySelector('.todo-input').value!="") {
+            localStorage.setItem('todo', name_input)
+            document.querySelector('.todo-input').value=""
+        }
+        else {
+            alert('Enter valid item')
+        }
+    }
+})
+
 var a=1
 function formatAMPM() {
     var greet="";
@@ -67,6 +81,7 @@ function formatAMPM() {
     var strTime = hours + ':' + minutes;
     document.querySelector('#ct').innerHTML = strTime;
     document.querySelector('#greet').innerHTML = greet+` ${localStorage.getItem('name')},`;
+    document.querySelector('#todo').innerHTML ='<ul class="list-group list-group-flush" style="padding-right:0;">'+localStorage.getItem('todo')+'</ul>';
     if(a==1)
       getMessage()
 

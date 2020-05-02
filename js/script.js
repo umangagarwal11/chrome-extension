@@ -22,13 +22,21 @@ document.querySelector('.first').addEventListener('keydown', e => {
         }
     }
 })
+if(localStorage.getItem('x')==null){
+localStorage.setItem('x',0);}
+
+if(localStorage.getItem('todo')==null){
+localStorage.setItem('todo',JSON.stringify({}));}
 
 document.querySelector('.modal-body').addEventListener('keydown', e => {
     if(e.key == 'Enter') {
-        var name_input = localStorage.getItem('todo')+'<li class="list-group-item" style="text-align:left;margin-top:0;">'+document.querySelector('.todo-input').value+'</li>'
         if(document.querySelector('.todo-input').value!="") {
-            localStorage.setItem('todo', name_input)
+            var name_input = JSON.parse(localStorage.getItem('todo'));
+            name_input[localStorage.getItem('x')]={'text':document.querySelector('.todo-input').value,'check':"unchecked"};
+            localStorage.setItem('x',localStorage.getItem('x')+1);
+            localStorage.setItem('todo', JSON.stringify(name_input));
             document.querySelector('.todo-input').value=""
+            gettodo()
         }
         else {
             alert('Enter valid item')
@@ -81,12 +89,45 @@ function formatAMPM() {
     var strTime = hours + ':' + minutes;
     document.querySelector('#ct').innerHTML = strTime;
     document.querySelector('#greet').innerHTML = greet+` ${localStorage.getItem('name')},`;
-    document.querySelector('#todo').innerHTML ='<ul class="list-group list-group-flush" style="padding-right:0;">'+localStorage.getItem('todo')+'</ul>';
-    if(a==1)
-      getMessage()
 
+    if(a==1){
+      getMessage()
+      gettodo()
+    }
+      $(document).ready(function(){
+      $('.list-group-item').on('click',function(){
+        var a=$(this).attr('id');
+        var todo = JSON.parse(localStorage.getItem('todo'));
+        if(todo[a]['check']=="checked"){
+          document.getElementById(a).style.textDecoration="none";
+          todo[a]['check']="unchecked";
+          localStorage.setItem('todo',JSON.stringify(todo))
+          return
+        }
+        else {
+          document.getElementById(a).style.textDecoration="line-through";
+          todo[a]['check']="checked";
+          localStorage.setItem('todo',JSON.stringify(todo))
+          return
+        }
+    });
+      });
+}
+function gettodo()
+{
+  var abc='<ul class="list-group list-group-flush" style="padding-right:0;">';
+  var todo=JSON.parse(localStorage.getItem('todo'));
+  for (x in todo){
+    if(todo[x]['check']=="unchecked")
+    abc+='<li class="list-group-item col-12" id="'+x+'" style="text-align:left" >'+todo[x]['text']+'</li>';
+    else{
+    abc+='<li class="list-group-item col-12" id="'+x+'" style="text-align:left; text-decoration:line-through" >'+todo[x]['text']+'</li>';
+    }
+  }
+      document.querySelector('#todo').innerHTML = abc+'</ul>';
 
 }
+
 function getMessage() {
   a=0;
 // create array of murphy laws

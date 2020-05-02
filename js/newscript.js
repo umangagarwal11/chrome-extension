@@ -1,2 +1,2 @@
-location.replace('https://www.google.com');
+location.replace('chrome://newtab');
 alert('the site is blocked');

@@ -162,7 +162,7 @@ ar[18] = "Exceptions prove the rule ... and wreck the budget."
 ar[19] = "Success always occurs in private, and failure in full view."
 
 var now = new Date()
-var sec = now.getSeconds()
+var sec = now.getDate()*(now.getMonth()+1)
 document.querySelector('#quote').innerHTML=  ar[sec % 20]
 }
 setInterval(formatAMPM, 1000);

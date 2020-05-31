@@ -9,12 +9,5 @@
   "128": "icons/icon128.png"
   },
   "chrome_url_overrides" : {  "newtab": "src/override/override.html"},
-  "content_scripts": [
-   {
-     "matches": ["https://www.youtube.com/*"],
-     "run_at": "document_start",
-     "js": ["js/newscript.js"]
-   }
- ],
   "permissions": [ "https://source.unsplash.com/","http://quotes.rest/"]
   }
